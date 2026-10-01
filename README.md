@@ -5,13 +5,18 @@ not be.
 
 Most of my work lives in repositories you can clone and run — they are listed at the bottom
 of this page. What is here is the remainder: three systems where publishing the code was the
-wrong answer, either because it was written under contract for somebody else, or because the
-system is inseparable from the records it processes, or because twenty-six thousand lines of
-a half-finished product is not something anyone is going to read.
+wrong answer. One belongs to the firm that commissioned it. One is a live product of my own.
+One cannot be separated from the records of the several hundred people it processes.
 
-That last reason is the one worth saying out loud. A repository is not automatically a better
-artefact than a write-up. A reader who wants to know whether I can design a system gets more
-from four pages about the decisions than from a directory listing they will not open.
+In two of the three, the confidential part is not the source at all. It is the configuration —
+a firm's own operating procedure, modelled as data, which is the thing that made the system
+worth building — and the documentation, which carries far more identifiers than any source
+file does. Replacing all of that with fiction is possible, and what survives is a generic
+schema that demonstrates nothing about the part that was interesting.
+
+So a write-up was the honest artefact rather than the consolation prize. A reader deciding
+whether I can design a system gets more from four pages about the decisions than from a
+directory listing they will not open.
 
 So each case study here is organised around the decisions: what the constraint was, what I
 chose, what it cost, and what I would do differently now. The sections are the same in each
