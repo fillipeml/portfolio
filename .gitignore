@@ -1,0 +1,22 @@
+# Nothing from the source systems ever enters this repository.
+/source
+/private
+/data
+
+# secrets
+.env
+.env.*
+!.env.example
+
+# scan output
+sanitize-report.*
+
+# AI tooling local state
+.claude/settings.local.json
+.claude/*.local.*
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

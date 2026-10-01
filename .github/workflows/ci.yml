@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  prose:
+    name: links + structure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Every case study has the sections the README promises
+        run: |
+          for file in case-studies/*.md; do
+            echo "checking $file"
+            for heading in "## The problem" "## What it does" "## Architecture" "## Design decisions" "## Data and privacy" "## What I would do differently" "## Why this is a case study and not a repository"; do
+              grep -qF "$heading" "$file" || { echo "MISSING in $file: $heading"; exit 1; }
+            done
+          done
+
+      - name: Every case study is linked from the README
+        run: |
+          for file in case-studies/*.md; do
+            grep -qF "$(basename "$file")" README.md || { echo "NOT LINKED: $file"; exit 1; }
+          done
+
+      - name: No link points at a file that is not here
+        run: |
+          fail=0
+          while IFS= read -r target; do
+            [ -e "$target" ] || { echo "BROKEN relative link: $target"; fail=1; }
+          done < <(grep -rhoE '\]\(([a-zA-Z0-9._/-]+\.md)\)' README.md case-studies/ | sed -E 's/^\]\(//; s/\)$//')
+          exit $fail
+
+      - name: No source system was copied in here
+        run: |
+          ! find . -path ./.git -prune -o \( -name "*.py" -o -name "*.ts" -o -name "*.tsx" -o -name "*.sql" -o -name "*.prisma" \) -print | grep .
+
+  secrets:
+    name: secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
