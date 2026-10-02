@@ -38,10 +38,37 @@ jobs:
 
       - name: No link points at a file that is not here
         run: |
+          # Resolved from the directory of the file holding the link, not from the repo root:
+          # a relative link inside case-studies/ was looked up at the root, so the first one
+          # added would have failed here while being perfectly correct. The pattern also no
+          # longer requires a .md suffix, so LICENSE is covered.
           fail=0
-          while IFS= read -r target; do
-            [ -e "$target" ] || { echo "BROKEN relative link: $target"; fail=1; }
-          done < <(grep -rhoE '\]\(([a-zA-Z0-9._/-]+\.md)\)' README.md case-studies/ | sed -E 's/^\]\(//; s/\)$//')
+          while IFS= read -r hit; do
+            src="${hit%%::*}"
+            target="${hit##*::}"
+            [ -e "$(dirname "$src")/$target" ] || { echo "BROKEN link in $src -> $target"; fail=1; }
+          done < <(grep -rEo '\]\([a-zA-Z0-9._/-]+\)' --include='*.md' README.md case-studies/ \
+                   | sed -E 's/:\]\(/::/; s/\)$//')
+          exit $fail
+
+      # Rule 2 of CLAUDE.md, enforced rather than trusted: this repository publishes no
+      # identifier that could locate a person or a matter. No denylist of brand terms is
+      # committed here on purpose — a list of what must never be published is itself a thing
+      # that must never be published, and that mistake has already been made once. Brand
+      # terms are checked before every push by the local release-check; what CI can check
+      # without a list is the shape of an identifier.
+      - name: No Brazilian identifier reaches a published file
+        run: |
+          fail=0
+          check() {
+            if grep -rnE "$1" --include='*.md' README.md case-studies/; then
+              echo "FOUND: $2"; fail=1
+            fi
+          }
+          check '[0-9]{3}[.][0-9]{3}[.][0-9]{3}-[0-9]{2}' 'a CPF-shaped string'
+          check '[0-9]{2}[.][0-9]{3}[.][0-9]{3}/[0-9]{4}-[0-9]{2}' 'a CNPJ-shaped string'
+          check '[0-9]{7}-[0-9]{2}[.][0-9]{4}[.][0-9][.][0-9]{2}[.][0-9]{4}' 'a CNJ case number'
+          check 'OAB[/ ]?[A-Z]{2}[ ]?[0-9]{3,6}' 'an OAB registration'
           exit $fail
 
       - name: No source system was copied in here
