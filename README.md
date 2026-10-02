@@ -93,3 +93,6 @@ no figure, rather than a round one.
 
 [CC BY 4.0](LICENSE) — these are written works, so they carry a content licence. The code
 repositories linked above are MIT.
+
+Copyright (c) 2026 Fillipe Loose. Attribution to Fillipe Loose, with a link to this
+repository, satisfies the licence.
