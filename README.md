@@ -19,8 +19,9 @@ whether I can design a system gets more from four pages about the decisions than
 directory listing they will not open.
 
 So each case study here is organised around the decisions: what the constraint was, what I
-chose, what it cost, and what I would do differently now. The sections are the same in each
-one, and the last of them always answers the question the repository's absence raises.
+chose, what it cost, and what I would do differently now. The seven core sections are the same
+in each one, each write-up adds what its subject needs, and the last section always answers the
+question the repository's absence raises.
 
 ## The case studies
 
@@ -76,6 +77,7 @@ Systems I built that are published in full, each running offline on fictional da
 | [court-deadline-triage](https://github.com/fillipeml/court-deadline-triage) | Daily triage of court gazette publications, with the due date computed deterministically over versioned court calendars |
 | [court-notice-monitor](https://github.com/fillipeml/court-notice-monitor) | A read-only sweep of the electronic judicial domicile, built so that it cannot acknowledge service |
 | [eu-job-pipeline](https://github.com/fillipeml/eu-job-pipeline) | Multi-source job ingestion with rule-based and model-based fit scoring, and a golden-set evaluation |
+| [legal-llm-evals](https://github.com/fillipeml/legal-llm-evals) | An evaluation harness that refuses to print a rate without its confidence interval, or a model grader's score without that grader's calibration against human labels |
 
 ## On names and numbers
 

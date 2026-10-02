@@ -21,7 +21,8 @@ Working rules for AI-assisted changes in this repository.
 5. **Be honest about what is unfinished and what is wrong.** A case study that only lists
    successes reads as marketing. Every write-up carries a "what I would do differently"
    section, and the weaknesses in it are real ones.
-6. **Each case study keeps the seven required headings**, in order, because CI checks them:
+6. **Each case study keeps the seven required headings**, because CI checks each one is
+   present:
    `## The problem`, `## What it does`, `## Architecture`, `## Design decisions`,
    `## Data and privacy`, `## What I would do differently`,
    `## Why this is a case study and not a repository`. Add `## How AI was used` wherever a
