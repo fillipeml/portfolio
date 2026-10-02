@@ -432,8 +432,14 @@ own as [whatsapp-cloud-api-client](https://github.com/fillipeml/whatsapp-cloud-a
 rewritten against fictional data with 151 tests, and with two request-shape bugs fixed that the
 original still has.
 
-The other candidate for extraction is the tenancy model: the policy loop, the deny-by-default
-tenant function, the transaction-scoped setting that makes connection pooling safe, the
-two-role split, and the four-guarantee isolation test run as an unprivileged role. That is about
-two hundred lines of SQL, it is the part of this system I would most want someone to copy, and
-it is entirely free of anything confidential. It has not been published yet, and it is next.
+The tenancy model has been extracted too, and it is the part of this system I would most want
+someone to copy:
+[postgres-rls-multitenant-starter](https://github.com/fillipeml/postgres-rls-multitenant-starter)
+carries the policy loop, the deny-by-default tenant function, the transaction-scoped setting
+that makes connection pooling safe, the two-role split, and the four-guarantee isolation test
+run as an unprivileged role — against three invented tables instead of twenty-nine real ones.
+
+It also does something this system does not. Each of the four ways to get this wrong is
+*reproduced* by a script that asserts the hole exists, rather than described in a comment. That
+turned out to matter: one of the five I set out to demonstrate was not a hole at all, the
+assertion failed in CI, and the claim was corrected before anybody read it.

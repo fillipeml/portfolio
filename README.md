@@ -57,6 +57,9 @@ and CI, and they are the closest thing to the code behind two of the case studie
   Groups API client from the CRM, as a standalone library.
 - [mtls-pkcs12-agent](https://github.com/fillipeml/mtls-pkcs12-agent) — the mutual-TLS
   certificate handling from the vehicle-stock SaaS, as a standalone library.
+- [postgres-rls-multitenant-starter](https://github.com/fillipeml/postgres-rls-multitenant-starter)
+  — the tenancy model from the CRM, with the four guarantees proven and the four ways to get it
+  wrong reproduced.
 
 ## The rest of the work
 
