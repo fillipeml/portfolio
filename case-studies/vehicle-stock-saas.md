@@ -110,7 +110,8 @@ exposes, which fields the sale form renders, whether the cancel button appears, 
 manufacturer-only page will load at all.
 
 **A directory of brute-force probes, kept.** There was no documentation, so I wrote six
-standalone scripts: dump a certificate's subject and validity; point a certificate at two known
+standalone scripts: dump a certificate's subject and validity; load a certificate and print
+whatever the server answers back, body and all; point a certificate at two known
 endpoints and print the status codes; sweep a list of candidate paths with emoji-tagged results;
 scrape the Swagger UI's HTML for the specification URL and then try five candidate paths; and —
 the one that took longest — brute-force sixteen candidate names and eight candidate URL prefixes
@@ -130,9 +131,11 @@ list for the default three-month window.
 Documenting a workaround at the point of observation, rather than in a wiki, is the only version
 of that habit that survives.
 
-**Hand-rolled HTTP, because the abstraction did not fit.** Node's `fetch` cannot carry a
-per-request client certificate, and the certificate is the entire authentication scheme. So the
-transport is `https.request` directly, with the promise-wrapping boilerplate that implies. Four
+**Hand-rolled HTTP, because the abstraction did not fit.** Node's `fetch` ignores an
+`https.Agent`: pass one as `agent` and it is accepted and silently dropped, so the request goes
+out with no client certificate and the server answers as if none had been offered. The
+certificate is the entire authentication scheme here, so a transport that can lose it quietly is
+the wrong transport. It is `https.request` directly, with the promise-wrapping that implies. Four
 HTTP-capable dependencies sit unused in the manifest, left over from assuming otherwise.
 
 **Idempotency by borrowing the upstream primary key.** A credit order's primary key has no

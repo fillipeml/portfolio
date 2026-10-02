@@ -2,7 +2,7 @@
 
 **Client:** a Brazilian business-law firm of about forty lawyers · **Role:** sole engineer
 **Status:** in production on an assisted pilot, with the automation engine in dry run
-**Headline:** 44,600 lines · 30 tables, 29 under forced row-level security · 8 P0 findings from an adversarial review of my own work, all closed
+**Headline:** 45,000 lines · 30 tables, 29 under forced row-level security · 8 P0 findings from an adversarial review of my own work, all closed
 
 The interesting parts are a tenancy model enforced by the database rather than by the
 application, and an action engine that documents its own new failure mode.
@@ -298,7 +298,7 @@ The model only ever sees what a tenant-scoped query already returned.
 
 | | |
 | --- | --- |
-| Total tracked | about 44,600 lines across 298 files |
+| Total tracked | about 45,000 lines across 298 files |
 | Web application | 31,660 lines of TypeScript and TSX |
 | SQL | 4,199 lines: schema, 12 migrations, 3 seeds, 2 isolation tests |
 | Python | about 3,230 lines across five tools and one webhook |
